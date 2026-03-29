@@ -1,5 +1,5 @@
 # UserPlugins Script Generator
-This is a static React site built with Vite to generate installation scripts for Equicord and Vencord, allowing users to select plugins from the [o9 Plugins](https://github.com/o9-9/VBGenerator/blob/main/README.md) organization.
+This is a static React site built with Vite to generate installation scripts for Equicord and Vencord, allowing users to select plugins from the [o9 Plugins](https://github.com/o9-9/VBPGenerator/blob/main/README.md) organization.
 
 ## Features
 - **Client Selection**: Choose between Equicord, Vencord, or a Custom fork.
