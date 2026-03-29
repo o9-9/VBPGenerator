@@ -58,7 +58,9 @@ npm run dev
 
 Since this repo is named `User.github.io`, it is a User/Org site, so it will be hosted at the root domain. The `base` in vite config should be `/` (default).
 
-## [Template](https://github.com/o9-9/VPBTemplate)
+## Plugin Template
+
+- [Template](https://github.com/o9-9/VBPTemplate)
 
 ## License
 All plugins follow the same GPL-3.0-or-later license as Vencord.
