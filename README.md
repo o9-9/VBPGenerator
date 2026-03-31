@@ -28,4 +28,4 @@ To deploy to GitHub Pages:
 2. Run `npm run build`.
 3. Push the contents of `dist` to the `gh-pages` branch, or use a GitHub Action.
 
-Since this repo is named `o9-9.github.io/VBPGenerator`, it is a User/Org site, so it will be hosted at the root domain. The `base` in vite config should be `/` (default).
+Since this repo is a **project** page (`o9-9/VBPGenerator`), it is hosted at `https://o9-9.github.io/VBPGenerator/`. The `base` in Vite config must be `/VBPGenerator/`.
