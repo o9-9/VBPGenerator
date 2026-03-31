@@ -1,6 +1,6 @@
 export async function fetchPlugins() {
   try {
-    const response = await fetch('https://api.github.com/users/bluscream-vencord-plugins/repos?per_page=100');
+    const response = await fetch('https://api.github.com/users/o9-9/repos?per_page=100');
     if (!response.ok) {
       throw new Error(`GitHub API error: ${response.statusText}`);
     }
@@ -29,7 +29,7 @@ export async function fetchPlugins() {
 
 export async function fetchBranches(repoName) {
     try {
-        const response = await fetch(`https://api.github.com/repos/bluscream-vencord-plugins/${repoName}/branches`);
+        const response = await fetch(`https://api.github.com/repos/o9-9/${repoName}/branches`);
         if (!response.ok) {
             // If we hit rate limit or error, return empty to fallback to default
             console.warn(`Failed to fetch branches for ${repoName}: ${response.statusText}`);

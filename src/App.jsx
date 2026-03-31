@@ -10,7 +10,7 @@ function App() {
 
   // Form State
   const [client, setClient] = useState('Equicord');
-  const [customUrl, setCustomUrl] = useState('');
+  const [forkUrl, setForkUrl] = useState('');
   const [shell, setShell] = useState('powershell7');
 
   // Plugin Selection: Map<PluginName, BranchName>
@@ -20,7 +20,7 @@ function App() {
   const [loadingBranches, setLoadingBranches] = useState(false);
   const [pluginBranches, setPluginBranches] = useState({}); // { pluginName: ['main', 'dev', ...] }
 
-  // Advanced Settings
+  // More settings
   const [useGit, setUseGit] = useState(true);
   const [dependencyInstaller, setDependencyInstaller] = useState('winget');
   const [installPath, setInstallPath] = useState('');
@@ -44,8 +44,8 @@ function App() {
     if (newSelection.has(pluginName)) {
       newSelection.delete(pluginName);
     } else {
-      // If we have branches loaded, use the first one (usually main/master or whatever GitHub returned first)
-      // or default to the default_branch from repo info
+      // If branches are already loaded, use the first one
+      // Otherwise, fall back to the repo's default branch
       const branches = pluginBranches[pluginName];
       const branchToUse = (branches && branches.length > 0) ? branches[0] : defaultBranch;
       newSelection.set(pluginName, branchToUse);
@@ -65,8 +65,7 @@ function App() {
     setLoadingBranches(true);
     const newBranches = { ...pluginBranches };
 
-    // We'll fetch sequentially or in small batches to be nice to the API,
-    // but parallel is faster. Let's do parallel for now, user is clicking a button so they expect some load.
+    // Fetch branches in parallel so the user does not have to wait too long
     const promises = plugins.map(async (plugin) => {
       if (newBranches[plugin.name]) return; // already loaded
       const branches = await fetchBranches(plugin.name);
@@ -81,7 +80,7 @@ function App() {
   };
 
   const handleGenerate = (download = false) => {
-    // Construct the list of plugins with their selected branch
+    // Build the selected plugin list with the branch each one should use
     const selectedPluginObjects = [];
     selectedPlugins.forEach((branch, name) => {
       const original = plugins.find(p => p.name === name);
@@ -95,7 +94,7 @@ function App() {
 
     const config = {
       client,
-      customUrl,
+      forkUrl,
       shell,
       useGit,
       dependencyInstaller,
@@ -134,7 +133,7 @@ function App() {
         <div className="container">
           <div className="navbar-brand">
             <Terminal size={24} color="var(--primary-color)" />
-            <span>Plugin Installer Generator</span>
+            <span>Generator</span>
           </div>
         </div>
       </nav>
@@ -142,13 +141,13 @@ function App() {
       <div className="container animate-fade-in">
         {/* Header */}
         <header className="header">
-          <h1>Equicord & Vencord Installer</h1>
-          <p>Generate a custom installation script with your favorite plugins pre-loaded.</p>
+          <h1>Setup</h1>
+          <p>Installer with Plugins.</p>
         </header>
 
         {/* Client Selection */}
         <div className="glass-card delay-1">
-          <h3 className="form-group-title">1. Which client do you want to use?</h3>
+          <h3 className="form-group-title">1. Choose Client:</h3>
           <div className="radio-group">
             <label className={`radio-option ${client === 'Equicord' ? 'selected' : ''}`}>
               <input type="radio" name="client" value="Equicord" checked={client === 'Equicord'} onChange={(e) => setClient(e.target.value)} />
@@ -158,17 +157,17 @@ function App() {
               <input type="radio" name="client" value="Vencord" checked={client === 'Vencord'} onChange={(e) => setClient(e.target.value)} />
               <span>Vencord</span>
             </label>
-            <label className={`radio-option ${client === 'Custom' ? 'selected' : ''}`}>
-              <input type="radio" name="client" value="Custom" checked={client === 'Custom'} onChange={(e) => setClient(e.target.value)} />
-              <span>Custom</span>
+            <label className={`radio-option ${client === 'Fork' ? 'selected' : ''}`}>
+              <input type="radio" name="client" value="Fork" checked={client === 'Fork'} onChange={(e) => setClient(e.target.value)} />
+              <span>Fork</span>
             </label>
           </div>
-          {client === 'Custom' && (
+          {client === 'Fork' && (
             <input
               type="text"
-              placeholder="https://github.com/YourFork/Vencord"
-              value={customUrl}
-              onChange={(e) => setCustomUrl(e.target.value)}
+              placeholder="https://github.com/o9-9/Equicord"
+              value={forkUrl}
+              onChange={(e) => setForkUrl(e.target.value)}
               className="animate-fade-in"
             />
           )}
@@ -189,7 +188,7 @@ function App() {
         {/* Plugin Selection */}
         <div className="glass-card delay-2">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-            <h3 className="form-group-title" style={{ margin: 0 }}>2. Which plugins do you want?</h3>
+            <h3 className="form-group-title" style={{ margin: 0 }}>2. Choose Plugins:</h3>
             <button
               className="btn btn-secondary"
               onClick={loadAllBranches}
@@ -224,8 +223,7 @@ function App() {
                       </div>
                     </label>
 
-                    {/* Branch Selection UI - Only show if selected or if branches are loaded? Better to show if branches loaded so user can see options? */}
-                    {/* Let's show it if branches are loaded, creating a more "power user" feel */}
+                    {/* Branch selection shows up once branches are loaded */}
                     {branches && (
                       <div style={{ marginLeft: '2rem', marginTop: '0.5rem', width: 'calc(100% - 2rem)' }}>
                         <select
@@ -264,7 +262,7 @@ function App() {
 
         {/* Shell Selection */}
         <div className="glass-card delay-3">
-          <h3 className="form-group-title">3. Which shell will you use?</h3>
+          <h3 className="form-group-title">3. Choose a shell:</h3>
           <div className="radio-group">
             <label className={`radio-option ${shell === 'powershell7' ? 'selected' : ''}`}>
               <input type="radio" name="shell" value="powershell7" checked={shell === 'powershell7'} onChange={(e) => setShell(e.target.value)} />
@@ -280,22 +278,22 @@ function App() {
             </label>
             <label className={`radio-option disabled`} style={{ opacity: 0.5, cursor: 'not-allowed' }}>
               <input type="radio" name="shell" value="bash" disabled />
-              <span>Bash (Not Implemented)</span>
+              <span>Bash (coming soon)</span>
             </label>
           </div>
         </div>
 
-        {/* Advanced Settings */}
+        {/* More settings */}
         <div className="glass-card delay-4">
           <h3 className="form-group-title">
             <Settings size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-            Advanced Settings
+            More settings
           </h3>
 
           <div className="form-group">
             <label className={`checkbox-option ${useGit ? 'selected' : ''}`}>
               <input type="checkbox" checked={useGit} onChange={(e) => setUseGit(e.target.checked)} />
-              <span>Use Git (Allows for Client/Plugin updates)</span>
+              <span>Use Git (for updates later)</span>
             </label>
           </div>
 
@@ -320,7 +318,7 @@ function App() {
                 color: '#fff'
               }}
             >
-              <option value="">None (I have them installed)</option>
+              <option value="">None (Already installed)</option>
               <option value="winget">Winget</option>
               <option value="scoop">Scoop</option>
               <option value="chocolatey">Chocolatey</option>
@@ -328,7 +326,7 @@ function App() {
           </div>
 
           <div className="form-group">
-            <label style={{ display: 'block', marginBottom: '8px', color: '#ccc' }}>Install Location (empty for current dir)</label>
+            <label style={{ display: 'block', marginBottom: '8px', color: '#ccc' }}>Install Location (leave blank for current folder)</label>
             <input
               type="text"
               placeholder="C:\DiscordClients"
@@ -342,11 +340,11 @@ function App() {
         <div className="btn-group delay-4" style={{ justifyContent: 'center', marginBottom: '4rem' }}>
           <button className="btn" onClick={() => handleGenerate(true)}>
             <Download size={20} />
-            Download Script
+            Download
           </button>
           <button className="btn btn-secondary" onClick={() => handleGenerate(false)}>
             <Code size={20} />
-            Show Script
+            Preview
           </button>
         </div>
 
@@ -356,7 +354,7 @@ function App() {
       <div className={`modal-overlay ${scriptOpen ? 'open' : ''}`} onClick={() => setScriptOpen(false)}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
           <div className="modal-header">
-            <h3>Generated Script</h3>
+            <h3>Script</h3>
             <button className="close-btn" onClick={() => setScriptOpen(false)}>×</button>
           </div>
           <div className="modal-body">
