@@ -1,0 +1,1194 @@
+{
+  "plugins": [
+    {
+      "plugin": "Plugin Template",
+      "description": "Boilerplate for modular",
+      "repository": "https://github.com/o9-9/vb-pluginTemplate"
+    },
+    {
+      "plugin": "Anti Kick",
+      "description": "Automatically rejoin voice channels when disconnected",
+      "repository": "https://github.com/o9-9/vb-antiKick"
+    },
+    {
+      "plugin": "Auto Open Voice Text Chat",
+      "description": "Automatically opens the text chat of a voice channel when joining it",
+      "repository": "https://github.com/o9-9/vb-autoOpenVoiceTextChat"
+    },
+    {
+      "plugin": "Channel Badges",
+      "description": "Adds customizable badges to channels in the channel list",
+      "repository": "https://github.com/o9-9/vb-channelBadges"
+    },
+    {
+      "plugin": "Dev Companion Extended",
+      "description": "Hosts an MCP server allowing AI to control Discord via external tools",
+      "repository": "https://github.com/o9-9/vb-devCompanionExtended"
+    },
+    {
+      "plugin": "Dev Toggle",
+      "description": "Adds a checkbox to the toolbox to toggle all developer tools at once",
+      "repository": "https://github.com/o9-9/vb-devToggle"
+    },
+    {
+      "plugin": "Dev Tools Icon",
+      "description": "Adds a DevTools icon to the top navigation bar for quick access",
+      "repository": "https://github.com/o9-9/vb-devToolsIcon"
+    },
+    {
+      "plugin": "Friends Command",
+      "description": "Adds a /friends command to list mutual friends and their current location",
+      "repository": "https://github.com/o9-9/vb-friendsCommand"
+    },
+    {
+      "plugin": "Ghosted",
+      "description": "A cute ghost appears if you skip answering direct messages",
+      "repository": "https://github.com/o9-9/vb-ghosted"
+    },
+    {
+      "plugin": "Guild Invite Saver",
+      "description": "Automatically collects and saves invite links before leaving a server",
+      "repository": "https://github.com/o9-9/vb-guildInviteSaver"
+    },
+    {
+      "plugin": "Guild Export",
+      "description": "About Export guild structure and data including channels, roles, and members",
+      "repository": "https://github.com/o9-9/vb-guildExport"
+    },
+    {
+      "plugin": "Home Assistant Events",
+      "description": "Sends Discord events to HomeAssistant for automation",
+      "repository": "https://github.com/o9-9/vb-homeAssistantEvents"
+    },
+    {
+      "plugin": "Instant Screenshare",
+      "description": "About Instantly screenshare when joining a voice channel with support for various sources",
+      "repository": "https://github.com/o9-9/vb-instantScreenshare"
+    },
+    {
+      "plugin": "Keep Servers",
+      "description": "Keeps track of servers you've joined and allows you to rejoin them later (Web version using localStorage)",
+      "repository": "https://github.com/o9-9/vb-keepServers"
+    },
+    {
+      "plugin": "Keep Servers Desktop",
+      "description": "Keeps track of servers and allows to rejoin",
+      "repository": "https://github.com/o9-9/vb-keepServers/tree/desktop"
+    },
+    {
+      "plugin": "Local Voice Channel Moderation",
+      "description": "Automatically lowers the volume of users joining your voice channel",
+      "repository": "https://github.com/o9-9/vb-localVoiceChannelModeration"
+    },
+    {
+      "plugin": "MCP",
+      "description": "MCP server for inspecting Discord and running JavaScript",
+      "repository": "https://github.com/o9-9/vb-mcp"
+    },
+    {
+      "plugin": "Message Peek",
+      "description": "Peeks at the last message of DMs in the channel list",
+      "repository": "https://github.com/o9-9/vb-messagePeek"
+    },
+    {
+      "plugin": "Multi Account",
+      "description": "Allows using multiple Discord accounts in one instance by merging DMs and servers",
+      "repository": "https://github.com/o9-9/vb-multiAccount"
+    },
+    {
+      "plugin": "Performance Mode Toggle",
+      "description": "About Adds a performance mode toggle button that optimizes Discord settings for better performance",
+      "repository": "https://github.com/o9-9/vb-performanceModeToggle"
+    },
+    {
+      "plugin": "PTT Toggle",
+      "description": "Adds a push-to-talk toggle checkbox to the microphone button context menu",
+      "repository": "https://github.com/o9-9/vb-pttToggle"
+    },
+    {
+      "plugin": "Reply Delete",
+      "description": "Intercepts replies to deleted messages and sends them as quoted text",
+      "repository": "https://github.com/o9-9/vb-replyDeleted"
+    },
+    {
+      "plugin": "Socialize Guild",
+      "description": "Automatically takes actions against users joining your voice channel",
+      "repository": "https://github.com/o9-9/vb-socializeGuild"
+    },
+    {
+      "plugin": "Startup Channel",
+      "description": "Automatically opens and scrolls to a specific channel when Discord starts",
+      "repository": "https://github.com/o9-9/vb-startupChannel"
+    },
+    {
+      "plugin": "URL Bar",
+      "description": "Adds a full navigation bar to Discord with URL input, history, and navigation controls",
+      "repository": "https://github.com/o9-9/vb-urlBar"
+    },
+    {
+      "plugin": "Voice Channel Admin",
+      "description": "Automatically blocks users when they join your voice channel by simulating button clicks on bot messages",
+      "repository": "https://github.com/o9-9/vb-voiceChannelAdmin"
+    },
+    {
+      "plugin": "Voice Channel Follow User",
+      "description": "Follow a user to always be in the same voice channel as them",
+      "repository": "https://github.com/o9-9/vb-voiceChannelFollowUser"
+    },
+    {
+      "plugin": "Voice Channel Log",
+      "description": "Logs voice channel joins and leaves to the associated text channel",
+      "repository": "https://github.com/o9-9/vb-voiceChannelLog"
+    },
+    {
+      "plugin": "Voice Channel Utils",
+      "description": "Voice channel utilities for copying names, statuses, and codes",
+      "repository": "https://github.com/o9-9/vb-voiceChannelUtils"
+    },
+    {
+      "plugin": "Voice Channel Wait For Slot",
+      "description": "Automatically joins voice channels when they are no longer full",
+      "repository": "https://github.com/o9-9/vb-voiceChannelWaitForSlot"
+    },
+    {
+      "plugin": "AI Summarizer",
+      "description": "Summarizes messages or threads using AI.",
+      "repository": "https://github.com/o9-9/vc-aiSummarizer"
+    },
+    {
+      "plugin": "Analyzer API",
+      "description": "Exposes analysis helpers via an API surface in the client.",
+      "repository": "https://github.com/o9-9/vc-analyzerAPI"
+    },
+    {
+      "plugin": "Animalese Yapping",
+      "description": "Animal Crossing–style speech sounds for chat or voice.",
+      "repository": "https://github.com/o9-9/vc-animaleseYapping"
+    },
+    {
+      "plugin": "Anti Rick Roll",
+      "description": "Detects or blocks common rickroll links and embeds.",
+      "repository": "https://github.com/o9-9/vc-antiRickRoll"
+    },
+    {
+      "plugin": "Apple Music",
+      "description": "Integrates Apple Music presence or controls in Discord.",
+      "repository": "https://github.com/o9-9/vc-appleMusic"
+    },
+    {
+      "plugin": "At Someone",
+      "description": "Improves @mention behavior and notifications.",
+      "repository": "https://github.com/o9-9/vc-atSomeone"
+    },
+    {
+      "plugin": "Auto Delete",
+      "description": "Automatically deletes messages based on rules.",
+      "repository": "https://github.com/o9-9/vc-autoDelete"
+    },
+    {
+      "plugin": "Auto Forward",
+      "description": "Forwards messages between channels automatically.",
+      "repository": "https://github.com/o9-9/vc-autoForward"
+    },
+    {
+      "plugin": "Auto Nickname Changer",
+      "description": "Rotates or updates your nickname on a schedule.",
+      "repository": "https://github.com/o9-9/vc-autoNicknameChanger"
+    },
+    {
+      "plugin": "Auto Protect",
+      "description": "Adds automatic moderation or protection behaviors.",
+      "repository": "https://github.com/o9-9/vc-autoProtect"
+    },
+    {
+      "plugin": "Auto Status",
+      "description": "Sets or rotates custom status text automatically.",
+      "repository": "https://github.com/o9-9/vc-autoStatus"
+    },
+    {
+      "plugin": "Auto Switch Status",
+      "description": "Switches between status presets automatically.",
+      "repository": "https://github.com/o9-9/vc-autoSwitchStatus"
+    },
+    {
+      "plugin": "Auto Theme Switcher",
+      "description": "Switches Discord themes on a timer or condition.",
+      "repository": "https://github.com/o9-9/vc-autoThemeSwitcher"
+    },
+    {
+      "plugin": "Auto Voice Disconnecter",
+      "description": "Leaves voice channels automatically under rules.",
+      "repository": "https://github.com/o9-9/vc-autoVoiceDisconnecter"
+    },
+    {
+      "plugin": "Auto Voice Muter",
+      "description": "Mutes or unmutes voice automatically.",
+      "repository": "https://github.com/o9-9/vc-autoVoiceMuter"
+    },
+    {
+      "plugin": "Base 64 Decoder",
+      "description": "Decodes Base64 text from messages or clipboard.",
+      "repository": "https://github.com/o9-9/vc-base64Decoder"
+    },
+    {
+      "plugin": "Bau Baueh",
+      "description": "Fun sound or meme plugin (Bau Baueh).",
+      "repository": "https://github.com/o9-9/vc-bauBaueh"
+    },
+    {
+      "plugin": "Better Activities",
+      "description": "Improves how activities and rich presence are shown.",
+      "repository": "https://github.com/o9-9/vc-betterActivities"
+    },
+    {
+      "plugin": "Better Discord Stuff",
+      "description": "Miscellaneous quality-of-life Discord tweaks.",
+      "repository": "https://github.com/o9-9/vc-betterDiscordStuff"
+    },
+    {
+      "plugin": "Better Forums",
+      "description": "Enhances forum channels and thread lists.",
+      "repository": "https://github.com/o9-9/vc-betterForums"
+    },
+    {
+      "plugin": "Better Invites",
+      "description": "Improves invite previews, copy, and management.",
+      "repository": "https://github.com/o9-9/vc-betterInvites"
+    },
+    {
+      "plugin": "Better NSFW Tag",
+      "description": "Clearer NSFW labeling and filtering hints.",
+      "repository": "https://github.com/o9-9/vc-betterNSFWTag"
+    },
+    {
+      "plugin": "Better Pin D Ms",
+      "description": "Better pinned DM organization and display.",
+      "repository": "https://github.com/o9-9/vc-betterPinDMs"
+    },
+    {
+      "plugin": "Better Plus Reacts",
+      "description": "Expands quick reactions and emoji picker behavior.",
+      "repository": "https://github.com/o9-9/vc-betterPlusreacts"
+    },
+    {
+      "plugin": "Better TTS",
+      "description": "Improves text-to-speech playback and controls.",
+      "repository": "https://github.com/o9-9/vc-betterTTS"
+    },
+    {
+      "plugin": "Bg Video",
+      "description": "Background video or animated backdrop in the client.",
+      "repository": "https://github.com/o9-9/vc-bgVideo"
+    },
+    {
+      "plugin": "Big File Upload",
+      "description": "Helps upload or handle larger attachments.",
+      "repository": "https://github.com/o9-9/vc-bigFileUpload"
+    },
+    {
+      "plugin": "Block Krisp",
+      "description": "Blocks or limits Krisp noise suppression where unwanted.",
+      "repository": "https://github.com/o9-9/vc-blockKrisp"
+    },
+    {
+      "plugin": "Blur Medias Toggle",
+      "description": "Blurs media until clicked for spoilers or focus.",
+      "repository": "https://github.com/o9-9/vc-blurMediasToggle"
+    },
+    {
+      "plugin": "Boo Boo",
+      "description": "Playful sound or visual feedback (Boo Boo).",
+      "repository": "https://github.com/o9-9/vc-booBoo"
+    },
+    {
+      "plugin": "Bot Logging",
+      "description": "Logs bot-related events or messages for debugging.",
+      "repository": "https://github.com/o9-9/vc-botLogging"
+    },
+    {
+      "plugin": "Bridge PreMiD",
+      "description": "Bridges Discord activity to PreMiD.",
+      "repository": "https://github.com/o9-9/vc-bridgePreMid"
+    },
+    {
+      "plugin": "Bundle Parser",
+      "description": "Inspects or parses webpack-style bundles in DevTools.",
+      "repository": "https://github.com/o9-9/vc-bundleParser"
+    },
+    {
+      "plugin": "Bypass Blocked",
+      "description": "Workarounds for blocked embeds or links (use responsibly).",
+      "repository": "https://github.com/o9-9/vc-bypassBlocked"
+    },
+    {
+      "plugin": "Bypass DND",
+      "description": "Allows notifications or pings while in Do Not Disturb.",
+      "repository": "https://github.com/o9-9/vc-bypassDND"
+    },
+    {
+      "plugin": "Bypass Do Not Disturb",
+      "description": "Same as Bypass DND: DND override options.",
+      "repository": "https://github.com/o9-9/vc-bypassDoNotDisturb"
+    },
+    {
+      "plugin": "Cat Bookend",
+      "description": "Decorative cat-themed UI accents.",
+      "repository": "https://github.com/o9-9/vc-catBookend"
+    },
+    {
+      "plugin": "Category Cloner",
+      "description": "Duplicates channel categories and their channels.",
+      "repository": "https://github.com/o9-9/vc-categoryCloner"
+    },
+    {
+      "plugin": "Cat Meow",
+      "description": "Cat meow sounds or reactions in the client.",
+      "repository": "https://github.com/o9-9/vc-catMeow"
+    },
+    {
+      "plugin": "Chat Exporter",
+      "description": "Exports chat history to files.",
+      "repository": "https://github.com/o9-9/vc-chatExporter"
+    },
+    {
+      "plugin": "Chats Side Bar",
+      "description": "Adds or improves a chats sidebar layout.",
+      "repository": "https://github.com/o9-9/vc-chatsSideBar"
+    },
+    {
+      "plugin": "Clan Switcher",
+      "description": "Switch between clan or group contexts quickly.",
+      "repository": "https://github.com/o9-9/vc-clanSwitcher"
+    },
+    {
+      "plugin": "Clean Cord",
+      "description": "Removes clutter and simplifies parts of the UI.",
+      "repository": "https://github.com/o9-9/vc-cleanCord"
+    },
+    {
+      "plugin": "Collapse Chat Buttons",
+      "description": "Collapses chat toolbar buttons to save space.",
+      "repository": "https://github.com/o9-9/vc-collapseChatButtons"
+    },
+    {
+      "plugin": "Command Palette",
+      "description": "Quick command palette for plugin and Discord actions.",
+      "repository": "https://github.com/o9-9/vc-commandPalette"
+    },
+    {
+      "plugin": "Complete Discord Quest",
+      "description": "Automates or assists Discord quest completion.",
+      "repository": "https://github.com/o9-9/vc-completeDiscordQuest"
+    },
+    {
+      "plugin": "Component Demangler",
+      "description": "Demangles minified React component names in DevTools.",
+      "repository": "https://github.com/o9-9/vc-componentDemangler"
+    },
+    {
+      "plugin": "Content Warning",
+      "description": "Shows content warnings before revealing media.",
+      "repository": "https://github.com/o9-9/vc-contentWarning"
+    },
+    {
+      "plugin": "Copy Status Urls",
+      "description": "Copies URLs from user statuses in one click.",
+      "repository": "https://github.com/o9-9/vc-copyStatusUrls"
+    },
+    {
+      "plugin": "Csp Manager",
+      "description": "Manages Content-Security-Policy-related overrides.",
+      "repository": "https://github.com/o9-9/vc-cspManager"
+    },
+    {
+      "plugin": "Ctrl Enter Save",
+      "description": "Uses Ctrl+Enter to send or save messages.",
+      "repository": "https://github.com/o9-9/vc-ctrlEnterSave"
+    },
+    {
+      "plugin": "Cursor Dog",
+      "description": "A small dog follows your cursor.",
+      "repository": "https://github.com/o9-9/vc-cursorDog"
+    },
+    {
+      "plugin": "Custom Shiki",
+      "description": "Custom Shiki highlighter themes and languages.",
+      "repository": "https://github.com/o9-9/vc-customShiki"
+    },
+    {
+      "plugin": "Custom Sounds",
+      "description": "Replaces Discord UI sounds with custom files.",
+      "repository": "https://github.com/o9-9/vc-customSounds"
+    },
+    {
+      "plugin": "Custom Stream",
+      "description": "Custom streaming or screenshare enhancements.",
+      "repository": "https://github.com/o9-9/vc-customStream"
+    },
+    {
+      "plugin": "Custom Timestamps",
+      "description": "Formats message timestamps your way.",
+      "repository": "https://github.com/o9-9/vc-customTimestamps"
+    },
+    {
+      "plugin": "Custom User Commands",
+      "description": "Adds custom slash or user commands.",
+      "repository": "https://github.com/o9-9/vc-customUserCommands"
+    },
+    {
+      "plugin": "Cute Anime",
+      "description": "Anime-style decorations or effects.",
+      "repository": "https://github.com/o9-9/vc-cuteAnime"
+    },
+    {
+      "plugin": "Default Sounds",
+      "description": "Restores or picks default sound packs.",
+      "repository": "https://github.com/o9-9/vc-defaultSounds"
+    },
+    {
+      "plugin": "Dev Banner",
+      "description": "Shows a developer or debug banner in the UI.",
+      "repository": "https://github.com/o9-9/vc-devBanner"
+    },
+    {
+      "plugin": "Devtools In Popouts",
+      "description": "Opens DevTools for popout windows.",
+      "repository": "https://github.com/o9-9/vc-devtoolsInPopouts"
+    },
+    {
+      "plugin": "Disable Compression",
+      "description": "Disables certain asset compression for debugging.",
+      "repository": "https://github.com/o9-9/vc-disableCompression"
+    },
+    {
+      "plugin": "Embed Replace",
+      "description": "Replaces or restyles specific embed types.",
+      "repository": "https://github.com/o9-9/vc-embedReplace"
+    },
+    {
+      "plugin": "Emoji Mouse",
+      "description": "Emoji interactions tied to mouse movement or clicks.",
+      "repository": "https://github.com/o9-9/vc-emojiMouse"
+    },
+    {
+      "plugin": "Encrypt Cord",
+      "description": "Client-side encryption helpers for messages (experimental).",
+      "repository": "https://github.com/o9-9/vc-encryptCord"
+    },
+    {
+      "plugin": "Exit Sounds",
+      "description": "Plays sounds when leaving voice or closing views.",
+      "repository": "https://github.com/o9-9/vc-exitSounds"
+    },
+    {
+      "plugin": "External Stickers",
+      "description": "Use external sticker packs in more places.",
+      "repository": "https://github.com/o9-9/vc-externalStickers"
+    },
+    {
+      "plugin": "Fake Mute Deafenl",
+      "description": "Visually fakes mute/deafen state (variant).",
+      "repository": "https://github.com/o9-9/vc-fakeMuteDeafenl"
+    },
+    {
+      "plugin": "Fake Mute Deafenll",
+      "description": "Visually fakes mute/deafen state (variant).",
+      "repository": "https://github.com/o9-9/vc-fakeMuteDeafenll"
+    },
+    {
+      "plugin": "Fake Mute Deafenllll",
+      "description": "Visually fakes mute/deafen state (variant).",
+      "repository": "https://github.com/o9-9/vc-fakeMuteDeafenllll"
+    },
+    {
+      "plugin": "Fake Profile",
+      "description": "Cosmetic fake profile fields locally.",
+      "repository": "https://github.com/o9-9/vc-fakeProfile"
+    },
+    {
+      "plugin": "Fake Voice Options",
+      "description": "Spoofs voice settings locally.",
+      "repository": "https://github.com/o9-9/vc-fakeVoiceOptions"
+    },
+    {
+      "plugin": "File Size Override",
+      "description": "Raises or bypasses client file size hints.",
+      "repository": "https://github.com/o9-9/vc-fileSizeOverride"
+    },
+    {
+      "plugin": "Find Deleted Users",
+      "description": "Surfaces info about deleted or unavailable users.",
+      "repository": "https://github.com/o9-9/vc-findDeletedUsers"
+    },
+    {
+      "plugin": "Follow User",
+      "description": "Follows one user across voice channels.",
+      "repository": "https://github.com/o9-9/vc-followUser"
+    },
+    {
+      "plugin": "Follow Users",
+      "description": "Follow multiple users’ voice movement.",
+      "repository": "https://github.com/o9-9/vc-followUsers"
+    },
+    {
+      "plugin": "Follow Users Voice Channels",
+      "description": "Voice follow behavior for several users.",
+      "repository": "https://github.com/o9-9/vc-followUsersVoiceChannels"
+    },
+    {
+      "plugin": "Force Role Color",
+      "description": "Forces role color rendering in names.",
+      "repository": "https://github.com/o9-9/vc-forceRoleColor"
+    },
+    {
+      "plugin": "Free Wallpaper",
+      "description": "Free wallpapers or backgrounds in the app.",
+      "repository": "https://github.com/o9-9/vc-freeWallpaper"
+    },
+    {
+      "plugin": "Friend Codes",
+      "description": "Share or display friend codes easily.",
+      "repository": "https://github.com/o9-9/vc-friendCodes"
+    },
+    {
+      "plugin": "Gaming Blue",
+      "description": "Gaming-themed blue accent or presence tweaks.",
+      "repository": "https://github.com/o9-9/vc-gamingBlue"
+    },
+    {
+      "plugin": "Gif Collections",
+      "description": "Organize and browse GIF collections.",
+      "repository": "https://github.com/o9-9/vc-gifCollections"
+    },
+    {
+      "plugin": "Global Badges",
+      "description": "Shows extra badges globally on profiles.",
+      "repository": "https://github.com/o9-9/vc-globalBadges"
+    },
+    {
+      "plugin": "Good Person",
+      "description": "Playful “good person” indicators or jokes.",
+      "repository": "https://github.com/o9-9/vc-goodPerson"
+    },
+    {
+      "plugin": "Google That",
+      "description": "Search Google from selected text or links.",
+      "repository": "https://github.com/o9-9/vc-googleThat"
+    },
+    {
+      "plugin": "Hide Server Activity",
+      "description": "Hides server activity feed or sidebar sections.",
+      "repository": "https://github.com/o9-9/vc-hideServerActivity"
+    },
+    {
+      "plugin": "Holy Notes",
+      "description": "Enhanced notes or bookmarks for users and servers.",
+      "repository": "https://github.com/o9-9/vc-holyNotes"
+    },
+    {
+      "plugin": "Icon Viewer",
+      "description": "View and copy server, user, or emoji icons at full res.",
+      "repository": "https://github.com/o9-9/vc-iconViewer"
+    },
+    {
+      "plugin": "Id Utils",
+      "description": "Utilities for copying and inspecting snowflake IDs.",
+      "repository": "https://github.com/o9-9/vc-idUtils"
+    },
+    {
+      "plugin": "Ignore Terms",
+      "description": "Skips or hides terms-of-service prompts (use responsibly).",
+      "repository": "https://github.com/o9-9/vc-ignoreTerms"
+    },
+    {
+      "plugin": "Jumps Care",
+      "description": "Jump-scare or surprise effect plugin.",
+      "repository": "https://github.com/o9-9/vc-jumpsCare"
+    },
+    {
+      "plugin": "Junk Cleanup",
+      "description": "Cleans cached junk, temp data, or UI clutter.",
+      "repository": "https://github.com/o9-9/vc-junkCleanup"
+    },
+    {
+      "plugin": "Keyboard Sounds",
+      "description": "Typing sounds while composing messages.",
+      "repository": "https://github.com/o9-9/vc-keyboardSounds"
+    },
+    {
+      "plugin": "Keyword Notify",
+      "description": "Notifies when specific keywords appear.",
+      "repository": "https://github.com/o9-9/vc-keywordNotify"
+    },
+    {
+      "plugin": "Language Tools",
+      "description": "Translation, spellcheck, or language helpers.",
+      "repository": "https://github.com/o9-9/vc-languageTools"
+    },
+    {
+      "plugin": "Line Forward",
+      "description": "Forwards single lines or selections between channels.",
+      "repository": "https://github.com/o9-9/vc-lineForward"
+    },
+    {
+      "plugin": "Local Message Editor",
+      "description": "Edit how your own messages render locally.",
+      "repository": "https://github.com/o9-9/vc-localMessageEditor"
+    },
+    {
+      "plugin": "Login With QR",
+      "description": "Extra helpers for QR login flows.",
+      "repository": "https://github.com/o9-9/vc-loginWithQR"
+    },
+    {
+      "plugin": "Mar Sound",
+      "description": "Mario-style sound effects.",
+      "repository": "https://github.com/o9-9/vc-marSound"
+    },
+    {
+      "plugin": "Masked Paste",
+      "description": "Paste with masking or redaction.",
+      "repository": "https://github.com/o9-9/vc-maskedPaste"
+    },
+    {
+      "plugin": "Masked Paste Options",
+      "description": "Options for masked paste behavior.",
+      "repository": "https://github.com/o9-9/vc-maskedPasteOptions"
+    },
+    {
+      "plugin": "Media Playback Speed",
+      "description": "Speed control for video and audio embeds.",
+      "repository": "https://github.com/o9-9/vc-mediaPlaybackSpeed"
+    },
+    {
+      "plugin": "Message Colors",
+      "description": "Colors messages by author, role, or rules.",
+      "repository": "https://github.com/o9-9/vc-messageColors"
+    },
+    {
+      "plugin": "Message Deleter",
+      "description": "Bulk or rule-based message deletion tools.",
+      "repository": "https://github.com/o9-9/vc-messageDeleter"
+    },
+    {
+      "plugin": "Message Logger Enhanced",
+      "description": "Enhanced local message logging and search.",
+      "repository": "https://github.com/o9-9/vc-messageLoggerEnhanced"
+    },
+    {
+      "plugin": "Message Nitro Badge",
+      "description": "Shows a nitro-style badge on messages.",
+      "repository": "https://github.com/o9-9/vc-messageNitroBadge"
+    },
+    {
+      "plugin": "Message Peek",
+      "description": "Peek message content from the channel list.",
+      "repository": "https://github.com/o9-9/vc-messagePeek"
+    },
+    {
+      "plugin": "Message Responder",
+      "description": "Canned or quick responses to messages.",
+      "repository": "https://github.com/o9-9/vc-messageResponder"
+    },
+    {
+      "plugin": "Message Scheduler",
+      "description": "Schedule messages to send later.",
+      "repository": "https://github.com/o9-9/vc-messageScheduler"
+    },
+    {
+      "plugin": "More Alts",
+      "description": "Manage more alternate accounts in one client.",
+      "repository": "https://github.com/o9-9/vc-moreAlts"
+    },
+    {
+      "plugin": "More React",
+      "description": "Extra reaction slots or quick-react UI.",
+      "repository": "https://github.com/o9-9/vc-moreReact"
+    },
+    {
+      "plugin": "More User Tags",
+      "description": "Additional tags on user profiles.",
+      "repository": "https://github.com/o9-9/vc-moreUserTags"
+    },
+    {
+      "plugin": "Moyai Emoji",
+      "description": "Moyai 🗿 emoji enhancements.",
+      "repository": "https://github.com/o9-9/vc-moyaiEmoji"
+    },
+    {
+      "plugin": "Multi Stickers",
+      "description": "Use multiple stickers in one message.",
+      "repository": "https://github.com/o9-9/vc-multiStickers"
+    },
+    {
+      "plugin": "Mute Alert",
+      "description": "Alerts when you are muted or deafened.",
+      "repository": "https://github.com/o9-9/vc-muteAlert"
+    },
+    {
+      "plugin": "Name Style Changer",
+      "description": "Changes display name styling (fonts, effects).",
+      "repository": "https://github.com/o9-9/vc-nameStyleChanger"
+    },
+    {
+      "plugin": "Narrator Custom",
+      "description": "Custom narrator or TTS voice settings.",
+      "repository": "https://github.com/o9-9/vc-narratorCustom"
+    },
+    {
+      "plugin": "Nazi Grammar",
+      "description": "Strict grammar or style enforcement (satirical).",
+      "repository": "https://github.com/o9-9/vc-naziGrammar"
+    },
+    {
+      "plugin": "Newlines In Commands",
+      "description": "Allows newlines inside slash command input.",
+      "repository": "https://github.com/o9-9/vc-newlinesInCommands"
+    },
+    {
+      "plugin": "New Plugins Manager",
+      "description": "Alternative UI for managing Vencord plugins.",
+      "repository": "https://github.com/o9-9/vc-newPluginsManager"
+    },
+    {
+      "plugin": "Nitro Sniper",
+      "description": "Notifies about Nitro drops or gifts (use responsibly).",
+      "repository": "https://github.com/o9-9/vc-nitroSniper"
+    },
+    {
+      "plugin": "No RPC",
+      "description": "Disables rich presence / RPC publishing.",
+      "repository": "https://github.com/o9-9/vc-noRPC"
+    },
+    {
+      "plugin": "Notify User Changes",
+      "description": "Notifies when a user changes profile or status.",
+      "repository": "https://github.com/o9-9/vc-notifyUserChanges"
+    },
+    {
+      "plugin": "Notify Users Messages",
+      "description": "Notifies when specific users send messages.",
+      "repository": "https://github.com/o9-9/vc-notifyUsersMessages"
+    },
+    {
+      "plugin": "Notify When Muted",
+      "description": "Notifies you when you get server-muted.",
+      "repository": "https://github.com/o9-9/vc-notifyWhenMuted"
+    },
+    {
+      "plugin": "Obs Remote Control",
+      "description": "Controls OBS from Discord shortcuts.",
+      "repository": "https://github.com/o9-9/vc-obsRemoteControl"
+    },
+    {
+      "plugin": "Official Theme Base Force",
+      "description": "Forces base theme assets from official builds.",
+      "repository": "https://github.com/o9-9/vc-officialThemeBaseForce"
+    },
+    {
+      "plugin": "Orbolay Bridge",
+      "description": "Bridge integration for Orbolay.",
+      "repository": "https://github.com/o9-9/vc-orbolayBridge"
+    },
+    {
+      "plugin": "Pause Previews",
+      "description": "Pauses video previews until hovered.",
+      "repository": "https://github.com/o9-9/vc-pausePreviews"
+    },
+    {
+      "plugin": "Personal Badges",
+      "description": "Shows custom badges only you can see.",
+      "repository": "https://github.com/o9-9/vc-personalBadges"
+    },
+    {
+      "plugin": "Ping Display",
+      "description": "Shows latency in the UI.",
+      "repository": "https://github.com/o9-9/vc-pingDisplay"
+    },
+    {
+      "plugin": "Pip Stream",
+      "description": "Picture-in-picture for streams.",
+      "repository": "https://github.com/o9-9/vc-pipStream"
+    },
+    {
+      "plugin": "Platform Spoofer",
+      "description": "Spoofs client platform in presence.",
+      "repository": "https://github.com/o9-9/vc-platformSpoofer"
+    },
+    {
+      "plugin": "PreMiD",
+      "description": "Rich presence via PreMiD integration.",
+      "repository": "https://github.com/o9-9/vc-preMiD"
+    },
+    {
+      "plugin": "Privacy Screen",
+      "description": "Dims or hides sensitive UI when needed.",
+      "repository": "https://github.com/o9-9/vc-privacyScreen"
+    },
+    {
+      "plugin": "Purge Messages",
+      "description": "Purges messages in bulk with filters.",
+      "repository": "https://github.com/o9-9/vc-purgeMessages"
+    },
+    {
+      "plugin": "Quest Complete",
+      "description": "Helps complete Discord quests.",
+      "repository": "https://github.com/o9-9/vc-questComplete"
+    },
+    {
+      "plugin": "Random Gary",
+      "description": "Random Gary meme or sound integration.",
+      "repository": "https://github.com/o9-9/vc-randomGary"
+    },
+    {
+      "plugin": "Random Stuff",
+      "description": "Miscellaneous fun utilities.",
+      "repository": "https://github.com/o9-9/vc-randomStuff"
+    },
+    {
+      "plugin": "Remote Api",
+      "description": "Remote API hooks for scripting or bots.",
+      "repository": "https://github.com/o9-9/vc-remoteApi"
+    },
+    {
+      "plugin": "Removable Chat Buttons",
+      "description": "Hide individual chat bar buttons.",
+      "repository": "https://github.com/o9-9/vc-removableChatButtons"
+    },
+    {
+      "plugin": "Remove Server Avatar And Nick",
+      "description": "Strip server-specific avatar and nick locally.",
+      "repository": "https://github.com/o9-9/vc-removeServerAvatarAndNick"
+    },
+    {
+      "plugin": "Role Duplication",
+      "description": "Duplicate roles with permissions.",
+      "repository": "https://github.com/o9-9/vc-roleDuplication"
+    },
+    {
+      "plugin": "Rpc Music Title",
+      "description": "Rich presence music title formatting.",
+      "repository": "https://github.com/o9-9/vc-rpcMusicTitle"
+    },
+    {
+      "plugin": "Rpc You Tube Music",
+      "description": "YouTube Music in rich presence.",
+      "repository": "https://github.com/o9-9/vc-rpcYouTubeMusic"
+    },
+    {
+      "plugin": "Send Something Cute",
+      "description": "Quick cute messages or media.",
+      "repository": "https://github.com/o9-9/vc-sendSomethingCute"
+    },
+    {
+      "plugin": "Server Profiles Toolbox",
+      "description": "Tools for per-server profiles.",
+      "repository": "https://github.com/o9-9/vc-serverProfilesToolbox"
+    },
+    {
+      "plugin": "Server Tag Rotator",
+      "description": "Rotates server tags or tags in names.",
+      "repository": "https://github.com/o9-9/vc-serverTagRotator"
+    },
+    {
+      "plugin": "Shiki Assets",
+      "description": "Extra assets for Shiki code highlighting.",
+      "repository": "https://github.com/o9-9/vc-shikiAssets"
+    },
+    {
+      "plugin": "Show Badge Unread Messages",
+      "description": "Unread counts on badge areas.",
+      "repository": "https://github.com/o9-9/vc-showBadgeUnreadMessages"
+    },
+    {
+      "plugin": "Show Message Embeds",
+      "description": "Always show or expand embeds.",
+      "repository": "https://github.com/o9-9/vc-showMessageEmbeds"
+    },
+    {
+      "plugin": "Show Ping",
+      "description": "Displays voice or gateway ping.",
+      "repository": "https://github.com/o9-9/vc-showPing"
+    },
+    {
+      "plugin": "Show Roles",
+      "description": "Lists roles more visibly on profiles.",
+      "repository": "https://github.com/o9-9/vc-showRoles"
+    },
+    {
+      "plugin": "Show Sessions",
+      "description": "Lists active sessions / devices.",
+      "repository": "https://github.com/o9-9/vc-showSessions"
+    },
+    {
+      "plugin": "Show Time",
+      "description": "Shows local or custom time in the UI.",
+      "repository": "https://github.com/o9-9/vc-showTime"
+    },
+    {
+      "plugin": "Sign Ature",
+      "description": "Custom signatures appended to messages.",
+      "repository": "https://github.com/o9-9/vc-signAture"
+    },
+    {
+      "plugin": "Silent Delete",
+      "description": "Deletes without confirmation or animation.",
+      "repository": "https://github.com/o9-9/vc-silentDelete"
+    },
+    {
+      "plugin": "Silent Edit",
+      "description": "Edits with minimal UI feedback.",
+      "repository": "https://github.com/o9-9/vc-silentEdit"
+    },
+    {
+      "plugin": "Silent Typing Enhanced",
+      "description": "Hides typing indicators more reliably.",
+      "repository": "https://github.com/o9-9/vc-silentTypingEnhanced"
+    },
+    {
+      "plugin": "Silly Maxwell",
+      "description": "Silly Maxwell cat meme integration.",
+      "repository": "https://github.com/o9-9/vc-sillyMaxwell"
+    },
+    {
+      "plugin": "Smart Capitalization",
+      "description": "Auto-capitalizes sentences smartly.",
+      "repository": "https://github.com/o9-9/vc-smartCapitalization"
+    },
+    {
+      "plugin": "Song Spotlight",
+      "description": "Highlights currently playing song in UI.",
+      "repository": "https://github.com/o9-9/vc-songSpotlight"
+    },
+    {
+      "plugin": "Sort Reactions",
+      "description": "Sorts reactions by count or emoji.",
+      "repository": "https://github.com/o9-9/vc-sortReactions"
+    },
+    {
+      "plugin": "Sound Triggers",
+      "description": "Plays sounds on chat or voice events.",
+      "repository": "https://github.com/o9-9/vc-soundTriggers"
+    },
+    {
+      "plugin": "Split Large File",
+      "description": "Splits large files for upload.",
+      "repository": "https://github.com/o9-9/vc-splitLargeFile"
+    },
+    {
+      "plugin": "Spotify Lyrics",
+      "description": "Shows Spotify lyrics in Discord.",
+      "repository": "https://github.com/o9-9/vc-spotifyLyrics"
+    },
+    {
+      "plugin": "Status Countdown",
+      "description": "Countdown in custom status.",
+      "repository": "https://github.com/o9-9/vc-statusCountdown"
+    },
+    {
+      "plugin": "Status Presets",
+      "description": "Save and apply status presets.",
+      "repository": "https://github.com/o9-9/vc-statusPresets"
+    },
+    {
+      "plugin": "Stealth Launch",
+      "description": "Launches Discord with minimal visibility.",
+      "repository": "https://github.com/o9-9/vc-stealthLaunch"
+    },
+    {
+      "plugin": "Steam Status Sync",
+      "description": "Syncs Steam presence to Discord.",
+      "repository": "https://github.com/o9-9/vc-steamStatusSync"
+    },
+    {
+      "plugin": "Theme Library",
+      "description": "Browse and apply shared themes.",
+      "repository": "https://github.com/o9-9/vc-themeLibrary"
+    },
+    {
+      "plugin": "Time Capsule Chat",
+      "description": "Schedule messages to unlock later.",
+      "repository": "https://github.com/o9-9/vc-timeCapsuleChat"
+    },
+    {
+      "plugin": "Time Clips",
+      "description": "Clip or bookmark moments in time.",
+      "repository": "https://github.com/o9-9/vc-timeClips"
+    },
+    {
+      "plugin": "Timestamps In Chatbox",
+      "description": "Shows timestamps inside the message box.",
+      "repository": "https://github.com/o9-9/vc-timestampsInChatbox"
+    },
+    {
+      "plugin": "Time Zone",
+      "description": "Time zone labels on messages or UI.",
+      "repository": "https://github.com/o9-9/vc-timeZone"
+    },
+    {
+      "plugin": "Toggle Camera",
+      "description": "Quick camera on/off in voice.",
+      "repository": "https://github.com/o9-9/vc-toggleCamera"
+    },
+    {
+      "plugin": "Trigger Warning",
+      "description": "Trigger-warning labels on content.",
+      "repository": "https://github.com/o9-9/vc-triggerWarning"
+    },
+    {
+      "plugin": "Trust Me Bro",
+      "description": "Meme / trust indicator plugin.",
+      "repository": "https://github.com/o9-9/vc-trustMeBro"
+    },
+    {
+      "plugin": "Undertale Dialogue",
+      "description": "Undertale-style dialogue boxes.",
+      "repository": "https://github.com/o9-9/vc-undertaleDialogue"
+    },
+    {
+      "plugin": "Unified Copy",
+      "description": "Unified copy formats for messages and IDs.",
+      "repository": "https://github.com/o9-9/vc-unifiedCopy"
+    },
+    {
+      "plugin": "Unit Swap",
+      "description": "Converts units (metric/imperial) in text.",
+      "repository": "https://github.com/o9-9/vc-unitSwap"
+    },
+    {
+      "plugin": "Unlimited Stickers",
+      "description": "Uses more stickers where limited.",
+      "repository": "https://github.com/o9-9/vc-unlimitedStickers"
+    },
+    {
+      "plugin": "Urban Search",
+      "description": "Urban Dictionary search from Discord.",
+      "repository": "https://github.com/o9-9/vc-urbanSearch"
+    },
+    {
+      "plugin": "User Changes",
+      "description": "Log or highlight user profile changes.",
+      "repository": "https://github.com/o9-9/vc-userChanges"
+    },
+    {
+      "plugin": "User Coleria",
+      "description": "User colorization or role color tools.",
+      "repository": "https://github.com/o9-9/vc-userColeria"
+    },
+    {
+      "plugin": "User Dev Tools",
+      "description": "DevTools helpers scoped to users.",
+      "repository": "https://github.com/o9-9/vc-userDevTools"
+    },
+    {
+      "plugin": "Users Stalker",
+      "description": "Track multiple users’ activity (privacy: use ethically).",
+      "repository": "https://github.com/o9-9/vc-usersStalker"
+    },
+    {
+      "plugin": "User Stalker",
+      "description": "Track a user’s activity (privacy: use ethically).",
+      "repository": "https://github.com/o9-9/vc-userStalker"
+    },
+    {
+      "plugin": "Join Logger",
+      "description": "Logs voice or server joins.",
+      "repository": "https://github.com/o9-9/vc-joinLogger"
+    },
+    {
+      "plugin": "Ventex Katex",
+      "description": "KaTeX math rendering (Ventex).",
+      "repository": "https://github.com/o9-9/vc-ventexKatex"
+    },
+    {
+      "plugin": "Video Start Notifier",
+      "description": "Notifies when someone starts a stream.",
+      "repository": "https://github.com/o9-9/vc-videoStartNotifier"
+    },
+    {
+      "plugin": "View Reply Thread",
+      "description": "Open reply threads in a better view.",
+      "repository": "https://github.com/o9-9/vc-viewReplyThread"
+    },
+    {
+      "plugin": "Vim Motion",
+      "description": "Vim keybindings in the message box.",
+      "repository": "https://github.com/o9-9/vc-vimMotion"
+    },
+    {
+      "plugin": "Voice Channel Logger",
+      "description": "Logs voice joins and leaves.",
+      "repository": "https://github.com/o9-9/vc-voiceChannelLogger"
+    },
+    {
+      "plugin": "Voice Channel Randomizer",
+      "description": "Joins random voice channels.",
+      "repository": "https://github.com/o9-9/vc-voiceChannelRandomizer"
+    },
+    {
+      "plugin": "Voice Chat Multiple Tasks",
+      "description": "Multiple voice-related background tasks.",
+      "repository": "https://github.com/o9-9/vc-voiceChatMultipleTasks"
+    },
+    {
+      "plugin": "Voice Chat Utilities",
+      "description": "Misc voice channel utilities.",
+      "repository": "https://github.com/o9-9/vc-voiceChatUtilities"
+    },
+    {
+      "plugin": "Voice Control Plus",
+      "description": "Extended voice control shortcuts.",
+      "repository": "https://github.com/o9-9/vc-voiceControlPlus"
+    },
+    {
+      "plugin": "Voice User Buttons",
+      "description": "Extra buttons for users in voice.",
+      "repository": "https://github.com/o9-9/vc-voiceUserButtons"
+    },
+    {
+      "plugin": "Waka Time",
+      "description": "WakaTime coding time in presence.",
+      "repository": "https://github.com/o9-9/vc-wakaTime"
+    },
+    {
+      "plugin": "Whos Watching",
+      "description": "Shows who is watching a stream.",
+      "repository": "https://github.com/o9-9/vc-whosWatching"
+    },
+    {
+      "plugin": "Wiggly Text",
+      "description": "Animated wiggly text effect.",
+      "repository": "https://github.com/o9-9/vc-wigglyText"
+    },
+    {
+      "plugin": "Wiki Search",
+      "description": "Search Wikipedia from chat.",
+      "repository": "https://github.com/o9-9/vc-wikiSearch"
+    },
+    {
+      "plugin": "Words Colors",
+      "description": "Colors specific words in messages.",
+      "repository": "https://github.com/o9-9/vc-wordsColors"
+    },
+    {
+      "plugin": "Work Mode",
+      "description": "Work-friendly UI: hides distractions.",
+      "repository": "https://github.com/o9-9/vc-workMode"
+    },
+    {
+      "plugin": "Write Upper Case",
+      "description": "Forces uppercase while typing.",
+      "repository": "https://github.com/o9-9/vc-writeUpperCase"
+    },
+    {
+      "plugin": "Xs Overlay",
+      "description": "XSOverlay VR integration.",
+      "repository": "https://github.com/o9-9/vc-xsOverlay"
+    },
+    {
+      "plugin": "Youtube Description",
+      "description": "Shows or fetches YouTube video descriptions.",
+      "repository": "https://github.com/o9-9/vc-youtubeDescription"
+    }
+  ]
+}

@@ -1,24 +1,65 @@
-import { useState, useEffect } from 'react';
-import { fetchPlugins, fetchBranches } from './PluginFetcher';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { fetchBranchesForPlugins, fetchRepoByUrl } from './PluginFetcher';
+import { fetchPluginsFromCatalog } from './pluginCatalog';
+import { pluginKey, normalizePluginHtmlUrl } from './pluginUtils';
+import { PluginSelectionSection } from './PluginSelectionSection';
 import { generateScript } from './ScriptGenerator';
-import { Terminal, Download, Code, Settings, Loader2, Check } from 'lucide-react';
+import { Terminal, Download, Code, Settings, Loader2, Check, Plus, Trash2 } from 'lucide-react';
 import './index.css';
 
+const DEFAULT_SELECTED_PLUGIN_URLS = new Set([
+  'https://github.com/o9-9/vb-voicechanneladmin',
+  'https://github.com/o9-9/vb-voicechannelfollowuser',
+  'https://github.com/o9-9/vb-voicechannellog',
+  'https://github.com/o9-9/vb-voicechannelutils',
+  'https://github.com/o9-9/vb-voicechannelwaitforslot',
+]);
+
 function App() {
-  const [plugins, setPlugins] = useState([]);
+  const [mdPlugins, setMdPlugins] = useState([]);
   const [loadingPlugins, setLoadingPlugins] = useState(true);
+
+  // Extra repos by URL (code block rows); resolved via GitHub API
+  const [pluginUrlRows, setPluginUrlRows] = useState([]);
+  const [urlResolvedPlugins, setUrlResolvedPlugins] = useState([]);
+  const [loadingUrlPlugins, setLoadingUrlPlugins] = useState(false);
+
+  const plugins = useMemo(() => {
+    const byKey = new Map();
+    for (const p of mdPlugins) {
+      byKey.set(pluginKey(p), p);
+    }
+    for (const p of urlResolvedPlugins) {
+      byKey.set(pluginKey(p), p);
+    }
+    const seen = new Set();
+    const ordered = [];
+    for (const p of mdPlugins) {
+      const k = pluginKey(p);
+      if (seen.has(k)) continue;
+      seen.add(k);
+      ordered.push(byKey.get(k));
+    }
+    for (const p of urlResolvedPlugins) {
+      const k = pluginKey(p);
+      if (seen.has(k)) continue;
+      seen.add(k);
+      ordered.push(byKey.get(k));
+    }
+    return ordered;
+  }, [mdPlugins, urlResolvedPlugins]);
 
   // Form State
   const [client, setClient] = useState('Equicord');
   const [forkUrl, setForkUrl] = useState('');
   const [shell, setShell] = useState('powershell7');
 
-  // Plugin Selection: Map<PluginName, BranchName>
+  // Plugin Selection: Map<pluginKey, BranchName>
   const [selectedPlugins, setSelectedPlugins] = useState(new Map());
 
   // Branch Management
   const [loadingBranches, setLoadingBranches] = useState(false);
-  const [pluginBranches, setPluginBranches] = useState({}); // { pluginName: ['main', 'dev', ...] }
+  const [pluginBranches, setPluginBranches] = useState({}); // { [pluginKey]: ['main', 'dev', ...] }
 
   // More settings
   const [useGit, setUseGit] = useState(true);
@@ -32,62 +73,125 @@ function App() {
   const [generatedScript, setGeneratedScript] = useState('');
   const [copyFeedback, setCopyFeedback] = useState(false);
 
+  const defaultsSeededRef = useRef(false);
+
   useEffect(() => {
-    fetchPlugins().then(data => {
-      setPlugins(data);
-      setLoadingPlugins(false);
-    });
+    let cancelled = false;
+    fetchPluginsFromCatalog()
+      .then((data) => {
+        if (!cancelled) {
+          setMdPlugins(data);
+          setLoadingPlugins(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        if (!cancelled) {
+          setMdPlugins([]);
+          setLoadingPlugins(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const togglePlugin = (pluginName, defaultBranch) => {
+  useEffect(() => {
+    if (loadingPlugins || plugins.length === 0 || defaultsSeededRef.current) return;
+    defaultsSeededRef.current = true;
+    const next = new Map();
+    for (const p of plugins) {
+      const u = normalizePluginHtmlUrl(p.html_url);
+      if (DEFAULT_SELECTED_PLUGIN_URLS.has(u)) {
+        next.set(pluginKey(p), p.default_branch);
+      }
+    }
+    setSelectedPlugins(next);
+  }, [loadingPlugins, plugins]);
+
+  useEffect(() => {
+    const urls = pluginUrlRows.map(r => r.url.trim()).filter(Boolean);
+    let cancelled = false;
+    (async () => {
+      await Promise.resolve();
+      if (cancelled) return;
+      if (urls.length === 0) {
+        setUrlResolvedPlugins([]);
+        setLoadingUrlPlugins(false);
+        return;
+      }
+      setLoadingUrlPlugins(true);
+      const results = await Promise.all(urls.map(u => fetchRepoByUrl(u)));
+      if (cancelled) return;
+      setUrlResolvedPlugins(results.filter(Boolean));
+      setLoadingUrlPlugins(false);
+    })();
+    return () => { cancelled = true; };
+  }, [pluginUrlRows]);
+
+  const addPluginUrlRow = () => {
+    setPluginUrlRows(prev => [...prev, { id: crypto.randomUUID(), url: '' }]);
+  };
+
+  const removePluginUrlRow = (id) => {
+    setPluginUrlRows(prev => prev.filter(r => r.id !== id));
+  };
+
+  const updatePluginUrlRow = (id, url) => {
+    setPluginUrlRows(prev => prev.map(r => (r.id === id ? { ...r, url } : r)));
+  };
+
+  const togglePlugin = (key, defaultBranch) => {
     const newSelection = new Map(selectedPlugins);
-    if (newSelection.has(pluginName)) {
-      newSelection.delete(pluginName);
+    if (newSelection.has(key)) {
+      newSelection.delete(key);
     } else {
-      // If branches are already loaded, use the first one
-      // Otherwise, fall back to the repo's default branch
-      const branches = pluginBranches[pluginName];
+      const branches = pluginBranches[key];
       const branchToUse = (branches && branches.length > 0) ? branches[0] : defaultBranch;
-      newSelection.set(pluginName, branchToUse);
+      newSelection.set(key, branchToUse);
     }
     setSelectedPlugins(newSelection);
   };
 
-  const changeBranch = (pluginName, branch) => {
+  const changeBranch = (key, branch) => {
     const newSelection = new Map(selectedPlugins);
-    if (newSelection.has(pluginName)) {
-      newSelection.set(pluginName, branch);
+    if (newSelection.has(key)) {
+      newSelection.set(key, branch);
       setSelectedPlugins(newSelection);
     }
   };
 
-  const loadAllBranches = async () => {
+  const loadBranchesForSelected = async () => {
+    const selectedList = plugins.filter((p) => selectedPlugins.has(pluginKey(p)));
+    if (selectedList.length === 0) return;
     setLoadingBranches(true);
-    const newBranches = { ...pluginBranches };
-
-    // Fetch branches in parallel so the user does not have to wait too long
-    const promises = plugins.map(async (plugin) => {
-      if (newBranches[plugin.name]) return; // already loaded
-      const branches = await fetchBranches(plugin.name);
-      if (branches.length > 0) {
-        newBranches[plugin.name] = branches;
-      }
-    });
-
-    await Promise.all(promises);
-    setPluginBranches(newBranches);
-    setLoadingBranches(false);
+    try {
+      const batch = await fetchBranchesForPlugins(selectedList, 4);
+      setPluginBranches((prev) => ({ ...prev, ...batch }));
+      setSelectedPlugins((prev) => {
+        const next = new Map(prev);
+        for (const [k, br] of next) {
+          const list = batch[k];
+          if (list && list.length > 0 && !list.includes(br)) {
+            next.set(k, list[0]);
+          }
+        }
+        return next;
+      });
+    } finally {
+      setLoadingBranches(false);
+    }
   };
 
   const handleGenerate = (download = false) => {
     // Build the selected plugin list with the branch each one should use
     const selectedPluginObjects = [];
-    selectedPlugins.forEach((branch, name) => {
-      const original = plugins.find(p => p.name === name);
+    selectedPlugins.forEach((branch, key) => {
+      const original = plugins.find(p => pluginKey(p) === key);
       if (original) {
         selectedPluginObjects.push({
           ...original,
-          branch: branch // Override or add branch property
+          branch
         });
       }
     });
@@ -133,7 +237,7 @@ function App() {
         <div className="container">
           <div className="navbar-brand">
             <Terminal size={24} color="var(--primary-color)" />
-            <span>Generator</span>
+            <span>o9</span>
           </div>
         </div>
       </nav>
@@ -141,13 +245,13 @@ function App() {
       <div className="container animate-fade-in">
         {/* Header */}
         <header className="header">
-          <h1>Setup</h1>
-          <p>Installer with Plugins.</p>
+          <h1>Generator</h1>
+          <p>Equicord/Vencord Plugin Generate a custom installation script with your favorite plugins pre-loaded.</p>
         </header>
 
         {/* Client Selection */}
         <div className="glass-card delay-1">
-          <h3 className="form-group-title">1. Choose Client:</h3>
+          <h3 className="form-group-title">Choose</h3>
           <div className="radio-group">
             <label className={`radio-option ${client === 'Equicord' ? 'selected' : ''}`}>
               <input type="radio" name="client" value="Equicord" checked={client === 'Equicord'} onChange={(e) => setClient(e.target.value)} />
@@ -173,7 +277,7 @@ function App() {
           )}
 
           <div style={{ marginTop: '1.5rem' }}>
-            <h4 style={{ fontSize: '0.9rem', color: '#ccc', marginBottom: '0.8rem' }}>Discord Branch</h4>
+            <h4 style={{ fontSize: '0.9rem', color: '#ccc', marginBottom: '0.8rem' }}>Branch</h4>
             <div className="radio-group" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))' }}>
               {['auto', 'stable', 'ptb', 'canary'].map(branch => (
                 <label key={branch} className={`radio-option ${discordBranch === branch ? 'selected' : ''}`} style={{ padding: '0.5rem' }}>
@@ -185,84 +289,66 @@ function App() {
           </div>
         </div>
 
-        {/* Plugin Selection */}
+        {/* Plugin URLs (code block) → plugin list */}
         <div className="glass-card delay-2">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-            <h3 className="form-group-title" style={{ margin: 0 }}>2. Choose Plugins:</h3>
-            <button
-              className="btn btn-secondary"
-              onClick={loadAllBranches}
-              disabled={loadingBranches}
-              style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
-            >
-              {loadingBranches ? <Loader2 className="spin" size={14} /> : null}
-              {loadingBranches ? 'Loading...' : 'Load Branches'}
+          <h3 className="form-group-title">Add</h3>
+          <p className="plugin-urls-hint">
+            Add GitHub Repository URLs (HTTPS or SSH). They are merged with the catalog. Empty rows are ignored.
+          </p>
+          <div className="plugin-urls-block">
+            {pluginUrlRows.length === 0 ? (
+              <p style={{ margin: '0.25rem 0', color: '#888', fontFamily: 'var(--font-family)', fontSize: '0.8rem' }}>
+                No extra URLs yet — use &quot;Add URL&quot; below.
+              </p>
+            ) : (
+              pluginUrlRows.map(row => (
+                <div key={row.id} className="plugin-url-row">
+                  <input
+                    type="text"
+                    placeholder="https://github.com/owner/fork"
+                    value={row.url}
+                    onChange={(e) => updatePluginUrlRow(row.id, e.target.value)}
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-secondary plugin-url-remove"
+                    onClick={() => removePluginUrlRow(row.id)}
+                    title="Remove URL"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              ))
+            )}
+            <button type="button" className="btn btn-secondary" onClick={addPluginUrlRow} style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem' }}>
+              <Plus size={14} style={{ marginRight: '0.35rem', verticalAlign: 'middle' }} />
+              Add URL
             </button>
           </div>
-
-          {loadingPlugins ? (
-            <div style={{ color: '#888', fontStyle: 'italic' }}>Loading plugins from GitHub...</div>
-          ) : (
-            <div className="checkbox-group" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-              {plugins.map(plugin => {
-                const isSelected = selectedPlugins.has(plugin.name);
-                const branches = pluginBranches[plugin.name];
-                const currentBranch = selectedPlugins.get(plugin.name) || plugin.default_branch;
-
-                return (
-                  <div key={plugin.name} className={`checkbox-option ${isSelected ? 'selected' : ''}`} style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', width: '100%', cursor: 'pointer' }}>
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => togglePlugin(plugin.name, plugin.default_branch)}
-                      />
-                      <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '0.8rem' }}>
-                        <span style={{ fontWeight: 600 }}>{plugin.name}</span>
-                        <span style={{ fontSize: '0.8rem', color: '#bbb' }}>{plugin.description || "No description"}</span>
-                      </div>
-                    </label>
-
-                    {/* Branch selection shows up once branches are loaded */}
-                    {branches && (
-                      <div style={{ marginLeft: '2rem', marginTop: '0.5rem', width: 'calc(100% - 2rem)' }}>
-                        <select
-                          value={currentBranch}
-                          onChange={(e) => changeBranch(plugin.name, e.target.value)}
-                          disabled={!isSelected}
-                          onClick={(e) => e.stopPropagation()}
-                          style={{
-                            padding: '0.3rem',
-                            borderRadius: '4px',
-                            background: 'rgba(0,0,0,0.3)',
-                            color: isSelected ? '#fff' : '#777',
-                            border: '1px solid var(--glass-border)',
-                            fontSize: '0.8rem',
-                            width: 'auto'
-                          }}
-                        >
-                          {branches.map(b => (
-                            <option key={b} value={b}>{b}</option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-
-                    {!branches && (
-                      <div style={{ marginLeft: '2rem', marginTop: '0.2rem', fontSize: '0.7rem', color: '#666' }}>
-                        Default Branch: {plugin.default_branch}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+          {loadingUrlPlugins && pluginUrlRows.some(r => r.url.trim()) ? (
+            <div style={{ marginTop: '0.75rem', color: '#888', fontSize: '0.85rem' }}>
+              <Loader2 className="spin" size={14} style={{ verticalAlign: 'middle', marginRight: '0.35rem' }} />
+              Resolving repository URLs…
             </div>
-          )}
+          ) : null}
         </div>
+
+        <PluginSelectionSection
+          plugins={plugins}
+          loading={loadingPlugins}
+          selectedPlugins={selectedPlugins}
+          pluginBranches={pluginBranches}
+          onToggle={togglePlugin}
+          onBranchChange={changeBranch}
+          onLoadBranches={loadBranchesForSelected}
+          loadingBranches={loadingBranches}
+        />
 
         {/* Shell Selection */}
         <div className="glass-card delay-3">
-          <h3 className="form-group-title">3. Choose a shell:</h3>
+          <h3 className="form-group-title">Shell</h3>
           <div className="radio-group">
             <label className={`radio-option ${shell === 'powershell7' ? 'selected' : ''}`}>
               <input type="radio" name="shell" value="powershell7" checked={shell === 'powershell7'} onChange={(e) => setShell(e.target.value)} />
@@ -287,7 +373,7 @@ function App() {
         <div className="glass-card delay-4">
           <h3 className="form-group-title">
             <Settings size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-            More settings
+            5. More settings
           </h3>
 
           <div className="form-group">
