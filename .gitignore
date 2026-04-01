@@ -22,4 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Other
 data/plugins.md
+data/BuildAndDeploy.ps1
+data/repos.txt
+scripts/check-urls.ps1
