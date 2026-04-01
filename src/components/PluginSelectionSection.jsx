@@ -1,5 +1,5 @@
 import { Loader2 } from 'lucide-react';
-import { pluginKey } from './pluginUtils';
+import { pluginKey } from '../lib/pluginUtils';
 
 function safeDomId(key) {
   return key.replace(/[^a-zA-Z0-9_-]/g, '-');

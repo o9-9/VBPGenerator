@@ -1,3 +1,5 @@
+import catalogPayload from '../data/plugins.json';
+
 /**
  * @param {string} url
  * @returns {{ owner: string, repo: string, branch: string | null } | null}
@@ -34,17 +36,7 @@ export function catalogRowToPlugin(row) {
   };
 }
 
-/**
- * @returns {Promise<Array<{ displayName: string, name: string, full_name: string, description: string, default_branch: string, html_url: string, clone_url: string }>>}
- */
-export async function fetchPluginsFromCatalog() {
-  const base = import.meta.env.BASE_URL || '/';
-  const path = base.endsWith('/') ? `${base}plugins.json` : `${base}/plugins.json`;
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`Failed to load plugins.json: ${response.statusText}`);
-  }
-  const data = await response.json();
+function normalizeCatalogRows(data) {
   const rows = Array.isArray(data) ? data : data.plugins;
   if (!Array.isArray(rows)) {
     throw new Error('plugins.json must contain a "plugins" array');
@@ -55,4 +47,11 @@ export async function fetchPluginsFromCatalog() {
     if (p) plugins.push(p);
   }
   return plugins;
+}
+
+/**
+ * @returns {Promise<Array<{ displayName: string, name: string, full_name: string, description: string, default_branch: string, html_url: string, clone_url: string }>>}
+ */
+export async function fetchPluginsFromCatalog() {
+  return normalizeCatalogRows(catalogPayload);
 }

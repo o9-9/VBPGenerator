@@ -1,11 +1,10 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { fetchBranchesForPlugins, fetchRepoByUrl } from './PluginFetcher';
-import { fetchPluginsFromCatalog } from './pluginCatalog';
-import { pluginKey, normalizePluginHtmlUrl } from './pluginUtils';
-import { PluginSelectionSection } from './PluginSelectionSection';
-import { generateScript } from './ScriptGenerator';
+import { fetchBranchesForPlugins, fetchRepoByUrl } from '../services/githubPluginApi';
+import { fetchPluginsFromCatalog } from '../lib/pluginCatalog';
+import { pluginKey, normalizePluginHtmlUrl } from '../lib/pluginUtils';
+import { PluginSelectionSection } from '../components/PluginSelectionSection';
+import { generateInstallScript } from '../generator/installScriptGenerator';
 import { Terminal, Download, Code, Settings, Loader2, Check, Plus, Trash2 } from 'lucide-react';
-import './index.css';
 
 const DEFAULT_SELECTED_PLUGIN_URLS = new Set([
   'https://github.com/o9-9/vb-voicechanneladmin',
@@ -16,7 +15,7 @@ const DEFAULT_SELECTED_PLUGIN_URLS = new Set([
 ]);
 
 function App() {
-  const [mdPlugins, setMdPlugins] = useState([]);
+  const [catalogPlugins, setCatalogPlugins] = useState([]);
   const [loadingPlugins, setLoadingPlugins] = useState(true);
 
   // Extra repos by URL (code block rows); resolved via GitHub API
@@ -26,7 +25,7 @@ function App() {
 
   const plugins = useMemo(() => {
     const byKey = new Map();
-    for (const p of mdPlugins) {
+    for (const p of catalogPlugins) {
       byKey.set(pluginKey(p), p);
     }
     for (const p of urlResolvedPlugins) {
@@ -34,7 +33,7 @@ function App() {
     }
     const seen = new Set();
     const ordered = [];
-    for (const p of mdPlugins) {
+    for (const p of catalogPlugins) {
       const k = pluginKey(p);
       if (seen.has(k)) continue;
       seen.add(k);
@@ -47,7 +46,7 @@ function App() {
       ordered.push(byKey.get(k));
     }
     return ordered;
-  }, [mdPlugins, urlResolvedPlugins]);
+  }, [catalogPlugins, urlResolvedPlugins]);
 
   // Form State
   const [client, setClient] = useState('Equicord');
@@ -80,14 +79,14 @@ function App() {
     fetchPluginsFromCatalog()
       .then((data) => {
         if (!cancelled) {
-          setMdPlugins(data);
+          setCatalogPlugins(data);
           setLoadingPlugins(false);
         }
       })
       .catch((err) => {
         console.error(err);
         if (!cancelled) {
-          setMdPlugins([]);
+          setCatalogPlugins([]);
           setLoadingPlugins(false);
         }
       });
@@ -110,7 +109,7 @@ function App() {
   }, [loadingPlugins, plugins]);
 
   useEffect(() => {
-    const urls = pluginUrlRows.map(r => r.url.trim()).filter(Boolean);
+    const urls = pluginUrlRows.map((r) => r.url.trim()).filter(Boolean);
     let cancelled = false;
     (async () => {
       await Promise.resolve();
@@ -121,24 +120,26 @@ function App() {
         return;
       }
       setLoadingUrlPlugins(true);
-      const results = await Promise.all(urls.map(u => fetchRepoByUrl(u)));
+      const results = await Promise.all(urls.map((u) => fetchRepoByUrl(u)));
       if (cancelled) return;
       setUrlResolvedPlugins(results.filter(Boolean));
       setLoadingUrlPlugins(false);
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [pluginUrlRows]);
 
   const addPluginUrlRow = () => {
-    setPluginUrlRows(prev => [...prev, { id: crypto.randomUUID(), url: '' }]);
+    setPluginUrlRows((prev) => [...prev, { id: crypto.randomUUID(), url: '' }]);
   };
 
   const removePluginUrlRow = (id) => {
-    setPluginUrlRows(prev => prev.filter(r => r.id !== id));
+    setPluginUrlRows((prev) => prev.filter((r) => r.id !== id));
   };
 
   const updatePluginUrlRow = (id, url) => {
-    setPluginUrlRows(prev => prev.map(r => (r.id === id ? { ...r, url } : r)));
+    setPluginUrlRows((prev) => prev.map((r) => (r.id === id ? { ...r, url } : r)));
   };
 
   const togglePlugin = (key, defaultBranch) => {
@@ -147,7 +148,7 @@ function App() {
       newSelection.delete(key);
     } else {
       const branches = pluginBranches[key];
-      const branchToUse = (branches && branches.length > 0) ? branches[0] : defaultBranch;
+      const branchToUse = branches && branches.length > 0 ? branches[0] : defaultBranch;
       newSelection.set(key, branchToUse);
     }
     setSelectedPlugins(newSelection);
@@ -184,14 +185,13 @@ function App() {
   };
 
   const handleGenerate = (download = false) => {
-    // Build the selected plugin list with the branch each one should use
     const selectedPluginObjects = [];
     selectedPlugins.forEach((branch, key) => {
-      const original = plugins.find(p => pluginKey(p) === key);
+      const original = plugins.find((p) => pluginKey(p) === key);
       if (original) {
         selectedPluginObjects.push({
           ...original,
-          branch
+          branch,
         });
       }
     });
@@ -204,10 +204,10 @@ function App() {
       dependencyInstaller,
       installPath,
       discordBranch,
-      installOpenAsar
+      installOpenAsar,
     };
 
-    const script = generateScript(config, selectedPluginObjects);
+    const script = generateInstallScript(config, selectedPluginObjects);
     setGeneratedScript(script);
 
     if (download) {
@@ -232,7 +232,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="container">
           <div className="navbar-brand">
@@ -243,13 +242,11 @@ function App() {
       </nav>
 
       <div className="container animate-fade-in">
-        {/* Header */}
         <header className="header">
           <h1>Generator</h1>
           <p>Equicord/Vencord Plugin Generate a custom installation script with your favorite plugins pre-loaded.</p>
         </header>
 
-        {/* Client Selection */}
         <div className="glass-card delay-1">
           <h3 className="form-group-title">Choose</h3>
           <div className="radio-group">
@@ -279,7 +276,7 @@ function App() {
           <div style={{ marginTop: '1.5rem' }}>
             <h4 style={{ fontSize: '0.9rem', color: '#ccc', marginBottom: '0.8rem' }}>Branch</h4>
             <div className="radio-group" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))' }}>
-              {['auto', 'stable', 'ptb', 'canary'].map(branch => (
+              {['auto', 'stable', 'ptb', 'canary'].map((branch) => (
                 <label key={branch} className={`radio-option ${discordBranch === branch ? 'selected' : ''}`} style={{ padding: '0.5rem' }}>
                   <input type="radio" name="discordBranch" value={branch} checked={discordBranch === branch} onChange={(e) => setDiscordBranch(e.target.value)} />
                   <span style={{ fontSize: '0.8rem' }}>{branch.toUpperCase()}</span>
@@ -289,7 +286,6 @@ function App() {
           </div>
         </div>
 
-        {/* Plugin URLs (code block) → plugin list */}
         <div className="glass-card delay-2">
           <h3 className="form-group-title">Add</h3>
           <p className="plugin-urls-hint">
@@ -301,7 +297,7 @@ function App() {
                 No extra URLs yet — use &quot;Add URL&quot; below.
               </p>
             ) : (
-              pluginUrlRows.map(row => (
+              pluginUrlRows.map((row) => (
                 <div key={row.id} className="plugin-url-row">
                   <input
                     type="text"
@@ -327,7 +323,7 @@ function App() {
               Add URL
             </button>
           </div>
-          {loadingUrlPlugins && pluginUrlRows.some(r => r.url.trim()) ? (
+          {loadingUrlPlugins && pluginUrlRows.some((r) => r.url.trim()) ? (
             <div style={{ marginTop: '0.75rem', color: '#888', fontSize: '0.85rem' }}>
               <Loader2 className="spin" size={14} style={{ verticalAlign: 'middle', marginRight: '0.35rem' }} />
               Resolving repository URLs…
@@ -346,7 +342,6 @@ function App() {
           loadingBranches={loadingBranches}
         />
 
-        {/* Shell Selection */}
         <div className="glass-card delay-3">
           <h3 className="form-group-title">Shell</h3>
           <div className="radio-group">
@@ -369,7 +364,6 @@ function App() {
           </div>
         </div>
 
-        {/* More settings */}
         <div className="glass-card delay-4">
           <h3 className="form-group-title">
             <Settings size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
@@ -401,7 +395,7 @@ function App() {
                 background: 'rgba(0,0,0,0.3)',
                 border: '1px solid var(--glass-border)',
                 borderRadius: '8px',
-                color: '#fff'
+                color: '#fff',
               }}
             >
               <option value="">None (Already installed)</option>
@@ -422,7 +416,6 @@ function App() {
           </div>
         </div>
 
-        {/* Actions */}
         <div className="btn-group delay-4" style={{ justifyContent: 'center', marginBottom: '4rem' }}>
           <button className="btn" onClick={() => handleGenerate(true)}>
             <Download size={20} />
@@ -433,12 +426,10 @@ function App() {
             Preview
           </button>
         </div>
-
       </div>
 
-      {/* Script Modal */}
       <div className={`modal-overlay ${scriptOpen ? 'open' : ''}`} onClick={() => setScriptOpen(false)}>
-        <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <h3>Script</h3>
             <button className="close-btn" onClick={() => setScriptOpen(false)}>×</button>

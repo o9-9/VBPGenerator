@@ -1,5 +1,6 @@
 /**
- * Regenerates public/plugins.json from public/plugins.md (table with **\[Name](https://github.com/...)** links).
+ * Regenerates src/data/plugins.json from data/plugins.md (table with **\[Name](https://github.com/...)** links).
+ * Not used at runtime; the app imports the JSON bundle via Vite.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -7,8 +8,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
-const mdPath = path.join(root, 'public', 'plugins.md');
-const outPath = path.join(root, 'public', 'plugins.json');
+const mdPath = path.join(root, 'data', 'plugins.md');
+const outPath = path.join(root, 'src', 'data', 'plugins.json');
 
 const LINK_RE = /\*\*\[([^\]]+)\]\((https:\/\/github\.com[^)\s]+)\)\*\*/i;
 
@@ -20,6 +21,11 @@ function parseGithubRef(url) {
   const repo = m[2].replace(/\.git$/i, '');
   const branch = m[3] || null;
   return { owner, repo, branch };
+}
+
+if (!fs.existsSync(mdPath)) {
+  console.error(`Missing ${mdPath}. Create data/plugins.md or copy your source table there.`);
+  process.exit(1);
 }
 
 const md = fs.readFileSync(mdPath, 'utf8');
@@ -42,5 +48,6 @@ for (const line of md.split(/\r?\n/)) {
   plugins.push({ plugin, description, repository });
 }
 
+fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, JSON.stringify({ plugins }, null, 2), 'utf8');
-console.log(`Wrote ${plugins.length} entries to public/plugins.json`);
+console.log(`Wrote ${plugins.length} entries to src/data/plugins.json`);

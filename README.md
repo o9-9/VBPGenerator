@@ -1,31 +1,63 @@
 # UserPlugins Script Generator
 
-This is a static React site built with Vite to generate installation scripts for Equicord and Vencord, allowing users to select plugins from the [VBPGenerator](https://github.com/o9-9/VBPGenerator) organization.
+Static React + Vite app that builds install scripts for **Equicord** and **Vencord** with a chosen set of user plugins.
 
 ## Features
 
-- **Client Selection**: Choose between Equicord, Vencord, or a Custom fork.
-- **Dynamic Plugin List**: Fetches all repositories from the organization as available plugins.
-- **Script Generation**: Supports PowerShell 7+, PowerShell 5, and Batch scripts.
-- **Rich UI**: Modern dark theme with glassmorphism effects.
-- **Advanced Options**: Git cloning vs ZIP download, custom install paths, dependency installers.
+- **Client selection**: Equicord, Vencord, or a custom fork URL.
+- **Plugin catalog**: Bundled from `src/data/plugins.json` (display names, descriptions, GitHub URLs). Optional extra repos merged in via the GitHub API.
+- **Branch picker**: Load remote branches for selected plugins (rate-limited API calls).
+- **Script output**: PowerShell 7+, PowerShell 5, or CMD/Batch.
+- **Options**: Git vs ZIP, install path, dependency installers (winget/scoop/choco), Discord branch for inject, OpenAsar.
+
+## Project layout
+
+```
+VBPGenerator/
+├── index.html                 # Vite entry HTML
+├── vite.config.js             # base: '/VBPGenerator/' for GitHub Pages
+├── data/
+│   └── plugins.md             # Optional source table for npm run build:plugins (gitignored if you keep it local)
+├── scripts/
+│   └── build-plugins-json.mjs # Writes src/data/plugins.json from data/plugins.md
+└── src/
+    ├── main.jsx               # React root
+    ├── index.css              # Global styles
+    ├── data/
+    │   └── plugins.json       # Catalog imported by the app (committed)
+    ├── app/
+    │   └── App.jsx            # Root layout, form state, modal
+    ├── assets/
+    │   └── logo.svg
+    ├── components/
+    │   └── PluginSelectionSection.jsx
+    ├── lib/
+    │   ├── pluginCatalog.js   # Normalize bundled catalog rows
+    │   └── pluginUtils.js     # pluginKey, URL helpers
+    ├── services/
+    │   └── githubPluginApi.js # GitHub REST: resolve URL, list branches
+    └── generator/
+        └── installScriptGenerator.js  # PowerShell / batch text output
+```
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Start dev server
 npm run dev
 ```
 
-## Deployment
+Edit the catalog directly in `src/data/plugins.json`, or maintain a markdown table in `data/plugins.md` and regenerate:
 
-To deploy to GitHub Pages:
+```bash
+npm run build:plugins
+```
 
-1. Update `vite.config.js` with the correct `base` path if not hosting at root (e.g. `base: '/repo-name/'`).
-2. Run `npm run build`.
-3. Push the contents of `dist` to the `gh-pages` branch, or use a GitHub Action.
+(`data/plugins.md` is listed in `.gitignore` so you can keep a private source file; commit `src/data/plugins.json` for the live catalog.)
 
-Since this repo is a **project** page (`o9-9/VBPGenerator`), it is hosted at `https://o9-9.github.io/VBPGenerator/`. The `base` in Vite config must be `/VBPGenerator/`.
+## Deployment (GitHub Pages)
+
+This repo is a **project** site: [https://o9-9.github.io/VBPGenerator/](https://o9-9.github.io/VBPGenerator/). Keep `base: '/VBPGenerator/'` in `vite.config.js` unless you change the hosting path.
+
+1. `npm run build`
+2. Publish the `dist` output (e.g. `gh-pages` branch or Actions).

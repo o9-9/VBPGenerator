@@ -1,4 +1,4 @@
-import { pluginKey } from './pluginUtils';
+import { pluginKey } from '../lib/pluginUtils';
 
 /** @returns {{ owner: string, repo: string } | null} */
 export function parseGitHubRepoUrl(url) {
@@ -67,16 +67,16 @@ export async function fetchBranchesForPlugins(plugins, concurrency = 4) {
 
 /** @param {string} fullName owner/repo */
 export async function fetchBranches(fullName) {
-    try {
-        const response = await fetch(`https://api.github.com/repos/${fullName}/branches`);
-        if (!response.ok) {
-            console.warn(`Failed to fetch branches for ${fullName}: ${response.statusText}`);
-            return [];
-        }
-        const data = await response.json();
-        return data.map(b => b.name);
-    } catch (error) {
-        console.error(`Error fetching branches for ${fullName}:`, error);
-        return [];
+  try {
+    const response = await fetch(`https://api.github.com/repos/${fullName}/branches`);
+    if (!response.ok) {
+      console.warn(`Failed to fetch branches for ${fullName}: ${response.statusText}`);
+      return [];
     }
+    const data = await response.json();
+    return data.map((b) => b.name);
+  } catch (error) {
+    console.error(`Error fetching branches for ${fullName}:`, error);
+    return [];
+  }
 }
